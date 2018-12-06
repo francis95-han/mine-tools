@@ -1,0 +1,8 @@
+
+*.iml
+java/.idea/workspace.xml
+java/.idea/libraries/Arquillian_JUnit_Release.xml
+java/.idea/workspace.xml
+
+java/src/test/
+java/target/
