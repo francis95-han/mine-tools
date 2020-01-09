@@ -5,15 +5,12 @@
 
 package xyz.zhangbohan.common.tools;
 
-import sun.misc.BASE64Encoder;
+
 
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 /**
  * file encoding: utf-8
  * Function :
@@ -56,7 +53,8 @@ public class VerifyUtils {
 		try {
 			MessageDigest md5 = MessageDigest.getInstance("MD5");
 			byte[] bytes = md5.digest(baseString.toString().getBytes("UTF-8"));
-			return new BASE64Encoder().encode(bytes);
+			Base64.Encoder encoder = Base64.getEncoder();
+			return new String(encoder.encode(bytes));
 		} catch (GeneralSecurityException ex) {
 			throw new IOException(ex);
 		}
