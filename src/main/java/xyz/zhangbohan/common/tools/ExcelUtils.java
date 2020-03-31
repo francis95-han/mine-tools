@@ -29,6 +29,7 @@ import java.util.*;
 
 /**
  * Excel操作工具类
+ *
  * @author ChaiXY
  */
 public class ExcelUtils {
@@ -42,8 +43,9 @@ public class ExcelUtils {
 
 	/**
 	 * 读取指定Sheet也的内容
+	 *
 	 * @param filepath filepath 文件全路径
-	 * @param sheetNo sheet序号,从0开始,如果读取全文sheetNo设置null
+	 * @param sheetNo  sheet序号,从0开始,如果读取全文sheetNo设置null
 	 */
 	public static String readExcel(String filepath, Integer sheetNo)
 			throws EncryptedDocumentException, InvalidFormatException, IOException {
@@ -71,6 +73,7 @@ public class ExcelUtils {
 
 	/**
 	 * 根据文件路径获取Workbook对象
+	 *
 	 * @param filepath 文件全路径
 	 */
 	public static Workbook getWorkbook(String filepath)
@@ -105,6 +108,7 @@ public class ExcelUtils {
 
 	/**
 	 * 获取后缀
+	 *
 	 * @param filepath filepath 文件全路径
 	 */
 	private static String getSuffiex(String filepath) {
@@ -121,15 +125,15 @@ public class ExcelUtils {
 	private static String readExcelSheet(Sheet sheet) {
 		StringBuilder sb = new StringBuilder();
 
-		if(sheet != null){
+		if (sheet != null) {
 			int rowNos = sheet.getLastRowNum();// 得到excel的总记录条数
 			for (int i = 0; i <= rowNos; i++) {// 遍历行
 				Row row = sheet.getRow(i);
-				if(row != null){
+				if (row != null) {
 					int columNos = row.getLastCellNum();// 表头总共的列数
 					for (int j = 0; j < columNos; j++) {
 						Cell cell = row.getCell(j);
-						if(cell != null){
+						if (cell != null) {
 							cell.setCellType(CellType.STRING);
 							sb.append(cell.getStringCellValue() + " ");
 							// System.out.print(cell.getStringCellValue() + " ");
@@ -145,8 +149,9 @@ public class ExcelUtils {
 
 	/**
 	 * 读取指定Sheet页的表头
+	 *
 	 * @param filepath filepath 文件全路径
-	 * @param sheetNo sheet序号,从0开始,必填
+	 * @param sheetNo  sheet序号,从0开始,必填
 	 */
 	public static Row readTitle(String filepath, int sheetNo)
 			throws IOException, EncryptedDocumentException, InvalidFormatException {
@@ -178,10 +183,11 @@ public class ExcelUtils {
 
 	/**
 	 * 创建Excel文件
-	 * @param filepath filepath 文件全路径
+	 *
+	 * @param filepath  filepath 文件全路径
 	 * @param sheetName 新Sheet页的名字
-	 * @param titles 表头
-	 * @param values 每行的单元格
+	 * @param titles    表头
+	 * @param values    每行的单元格
 	 */
 	public static boolean writeExcel(String filepath, String sheetName, List<String> titles,
 									 List<Map<String, Object>> values) throws IOException {
@@ -286,13 +292,14 @@ public class ExcelUtils {
 
 	/**
 	 * 添加一个Sheet
-	 * @param filepath filepath 文件全路径
+	 *
+	 * @param filepath  filepath 文件全路径
 	 * @param sheetName 新Sheet页的名字
-	 * @param titles 表头
-	 * @param values 每行的单元格
+	 * @param titles    表头
+	 * @param values    每行的单元格
 	 */
 	public static boolean addSheet(String filepath, String sheetName, List<String> titles,
-									 List<Map<String, Object>> values) throws IOException, InvalidFormatException {
+								   List<Map<String, Object>> values) throws IOException, InvalidFormatException {
 
 		boolean success = false;
 		OutputStream outputStream = null;
@@ -471,6 +478,7 @@ public class ExcelUtils {
 
 	/**
 	 * 将源文件的内容复制到新Excel文件(可供理解Excel使用,使用价值不大)
+	 *
 	 * @param srcFilepath 源文件全路径
 	 * @param desFilepath 目标文件全路径
 	 */
@@ -499,12 +507,12 @@ public class ExcelUtils {
 					for (int i = 0; i <= rowNos; i++) {
 						Row row = sheet.getRow(i);
 						Row row_des = sheet_des.createRow(i);
-						if(row != null){
+						if (row != null) {
 							int columNos = row.getLastCellNum();
 							for (int j = 0; j < columNos; j++) {
 								Cell cell = row.getCell(j);
 								Cell cell_des = row_des.createCell(j);
-								if(cell != null){
+								if (cell != null) {
 									cell.setCellType(CellType.STRING);
 									cell_des.setCellType(CellType.STRING);
 

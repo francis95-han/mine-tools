@@ -6,7 +6,6 @@
 package xyz.zhangbohan.common.tools;
 
 
-
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import java.security.MessageDigest;
@@ -22,6 +21,7 @@ import java.util.*;
 public class VerifyUtils {
 	/**
 	 * 天气签名生成算法-JAVA版本
+	 *
 	 * @param params 请求参数集，所有参数必须已转换为字符串类型
 	 * @param secret 签名密钥（用户的认证key）
 	 * @return 签名
@@ -37,7 +37,7 @@ public class VerifyUtils {
 		StringBuilder baseString = new StringBuilder();
 		for (Map.Entry param : entrys) {
 			//sign参数 和 空值参数 不加入算法
-			if(param.getValue()!=null &&
+			if (param.getValue() != null &&
 					!"".equals(param.getKey()) &&
 					!"sign".equals(param.getKey()) &&
 					!"key".equals(param.getKey()) &&
@@ -45,7 +45,7 @@ public class VerifyUtils {
 				baseString.append(param.getKey()).append("=").append(param.getValue()).append("&");
 			}
 		}
-		if(baseString.length() > 0 ) {
+		if (baseString.length() > 0) {
 			baseString.deleteCharAt(baseString.length() - 1).append(secret);
 		}
 

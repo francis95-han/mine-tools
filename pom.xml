@@ -15,7 +15,7 @@
     <name>xyz_zhangbohan_common</name>
     <description>a tool for mineself</description>
     <url>https://github.com/francis95-han/mine-tools.git</url>
-    
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -45,16 +45,25 @@
             <artifactId>commons-lang3</artifactId>
             <version>3.8.1</version>
         </dependency>
+        <!--guava-->
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>23.0</version>
         </dependency>
+        <!--myexcel-->
+        <dependency>
+            <groupId>com.github.liaochong</groupId>
+            <artifactId>myexcel</artifactId>
+            <version>3.3.1</version>
+        </dependency>
+        <!--        fastjson-->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
             <version>1.2.46</version>
         </dependency>
+        <!--        lombok-->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
@@ -65,25 +74,22 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>2.0.0-alpha1</version>
         </dependency>
+        <!--        sftp-->
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi</artifactId>
-            <version>3.17</version>
+            <groupId>com.jcraft</groupId>
+            <artifactId>jsch</artifactId>
+            <version>0.1.54</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-scratchpad</artifactId>
-            <version>3.17</version>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>9.0.14</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml</artifactId>
-            <version>3.17</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.poi</groupId>
-            <artifactId>poi-ooxml-schemas</artifactId>
-            <version>3.17</version>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -215,96 +221,99 @@
                 <profile.env>prod</profile.env>
             </properties>
             <build>
+
                 <resources>
                     <resource>
                         <directory>src/main/java</directory>
                     </resource>
                 </resources>
-                <plugins>
-                    <!-- Source -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-source-plugin</artifactId>
-                        <version>2.2.1</version>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar-no-fork</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- Javadoc -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>
-                        <version>2.9.1</version>
-                        <configuration>
-                            <show>private</show>
-                            <nohelp>true</nohelp>
-                            <charset>UTF-8</charset>
-                            <encoding>UTF-8</encoding>
-                            <docencoding>UTF-8</docencoding>
-                            <additionalparam>-Xdoclint:none</additionalparam>
-                            <!-- TODO 临时解决不规范的javadoc生成报错,后面要规范化后把这行去掉 -->
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>jar</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <!-- GPG -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-gpg-plugin</artifactId>
-                        <version>1.5</version>
-                        <executions>
-                            <execution>
-                                <phase>verify</phase>
-                                <goals>
-                                    <goal>sign</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
+                <pluginManagement>
+                    <plugins>
+                        <!-- Source -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-source-plugin</artifactId>
+                            <version>2.2.1</version>
+                            <executions>
+                                <execution>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>jar-no-fork</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <!-- Javadoc -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-javadoc-plugin</artifactId>
+                            <version>2.9.1</version>
+                            <configuration>
+                                <show>private</show>
+                                <nohelp>true</nohelp>
+                                <charset>UTF-8</charset>
+                                <encoding>UTF-8</encoding>
+                                <docencoding>UTF-8</docencoding>
+                                <additionalparam>-Xdoclint:none</additionalparam>
+                                <!-- TODO 临时解决不规范的javadoc生成报错,后面要规范化后把这行去掉 -->
+                            </configuration>
+                            <executions>
+                                <execution>
+                                    <phase>package</phase>
+                                    <goals>
+                                        <goal>jar</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
+                        <!-- GPG -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-gpg-plugin</artifactId>
+                            <version>1.5</version>
+                            <executions>
+                                <execution>
+                                    <phase>verify</phase>
+                                    <goals>
+                                        <goal>sign</goal>
+                                    </goals>
+                                </execution>
+                            </executions>
+                        </plugin>
 
-                    <!--Compiler -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-compiler-plugin</artifactId>
-                        <version>3.0</version>
-                        <configuration>
-                            <source>1.8</source>
-                            <target>1.8</target>
-                            <fork>true</fork>
-                            <verbose>true</verbose>
-                            <encoding>UTF-8</encoding>
-                            <showWarnings>false</showWarnings>
-                        </configuration>
-                    </plugin>
-                    <!--                    <plugin>-->
-                    <!--                        <groupId>org.sonatype.plugins</groupId>-->
-                    <!--                        <artifactId>nexus-staging-maven-plugin</artifactId>-->
-                    <!--                        <version>1.6.8</version>-->
-                    <!--                        <extensions>true</extensions>-->
-                    <!--                        <configuration>-->
-                    <!--                            <serverId>ossrh</serverId>-->
-                    <!--                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
-                    <!--                            <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
-                    <!--                        </configuration>-->
-                    <!--                    </plugin>-->
-                    <!--Release -->
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-release-plugin</artifactId>
-                        <version>2.5.3</version>
-                    </plugin>
-                </plugins>
+                        <!--Compiler -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-compiler-plugin</artifactId>
+                            <version>3.0</version>
+                            <configuration>
+                                <source>1.8</source>
+                                <target>1.8</target>
+                                <fork>true</fork>
+                                <verbose>true</verbose>
+                                <encoding>UTF-8</encoding>
+                                <showWarnings>false</showWarnings>
+                            </configuration>
+                        </plugin>
+                        <!--                    <plugin>-->
+                        <!--                        <groupId>org.sonatype.plugins</groupId>-->
+                        <!--                        <artifactId>nexus-staging-maven-plugin</artifactId>-->
+                        <!--                        <version>1.6.8</version>-->
+                        <!--                        <extensions>true</extensions>-->
+                        <!--                        <configuration>-->
+                        <!--                            <serverId>ossrh</serverId>-->
+                        <!--                            <nexusUrl>https://oss.sonatype.org/</nexusUrl>-->
+                        <!--                            <autoReleaseAfterClose>true</autoReleaseAfterClose>-->
+                        <!--                        </configuration>-->
+                        <!--                    </plugin>-->
+                        <!--Release -->
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-release-plugin</artifactId>
+                            <version>2.5.3</version>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
             </build>
             <distributionManagement>
                 <snapshotRepository>

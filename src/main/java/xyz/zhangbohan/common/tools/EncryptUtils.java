@@ -32,7 +32,6 @@ import java.util.Map;
 public class EncryptUtils {
 
 
-
 	/**
 	 * 非对称加密算法RSA算法组件
 	 * 非对称算法一般是用来传送对称加密算法的密钥来使用的，相对于DH算法，RSA算法只需要一方构造密钥，不需要
@@ -103,12 +102,12 @@ public class EncryptUtils {
 		int blocksSize = leavedSize != 0 ? data.length / blockSize + 1 : data.length / blockSize;
 
 		byte[] raw = new byte[outputSize * blocksSize];
-		int i =0;
+		int i = 0;
 		while (data.length - i * blockSize > 0) {
 			if (data.length - i * blockSize > blockSize) {
 				cipher.doFinal(data, i * blockSize, blockSize, raw, i * outputSize);
-			}else {
-				cipher.doFinal(data, i * blockSize, data.length-i*blockSize, raw, i * outputSize);
+			} else {
+				cipher.doFinal(data, i * blockSize, data.length - i * blockSize, raw, i * outputSize);
 			}
 			i++;
 		}
@@ -142,17 +141,16 @@ public class EncryptUtils {
 		int blocksSize = leavedSize != 0 ? data.length / blockSize + 1 : data.length / blockSize;
 
 		byte[] raw = new byte[outputSize * blocksSize];
-		int i =0;
+		int i = 0;
 		while (data.length - i * blockSize > 0) {
 			if (data.length - i * blockSize > blockSize) {
 				cipher.doFinal(data, i * blockSize, blockSize, raw, i * outputSize);
-			}else {
-				cipher.doFinal(data, i * blockSize, data.length-i*blockSize, raw, i * outputSize);
+			} else {
+				cipher.doFinal(data, i * blockSize, data.length - i * blockSize, raw, i * outputSize);
 			}
 			i++;
 		}
 		return raw;
-
 
 
 	}
@@ -286,7 +284,7 @@ public class EncryptUtils {
 	 * 模拟发送方 生成秘钥，并保存秘钥
 	 * (通过其他方式把秘钥提供给接收方，邮件，网络，U盘...)
 	 */
-	public static void saveSecret(String publicPath,String privatePath) throws Exception {
+	public static void saveSecret(String publicPath, String privatePath) throws Exception {
 		Map<String, Object> keyMap = initKey();
 		//公钥
 		byte[] publicKey = EncryptUtils.getPublicKey(keyMap);
@@ -304,13 +302,11 @@ public class EncryptUtils {
 		}
 
 
-		Files.write(publicKey,publicKeyFile);
-		Files.write(privateKey,privateKeyFile);
+		Files.write(publicKey, publicKeyFile);
+		Files.write(privateKey, privateKeyFile);
 
 
 	}
-
-
 
 
 }

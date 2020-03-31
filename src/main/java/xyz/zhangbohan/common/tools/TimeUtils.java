@@ -25,7 +25,7 @@ public class TimeUtils {
 	public static Date transToDate(LocalDateTime localDateTime) {
 
 		Date from = Date.from(localDateTime.toInstant(ZoneOffset.ofHours(8)));
-		log.info("时间转化 -- {}转化为{}",localDateTime,String.valueOf(from));
+		log.info("时间转化 -- {}转化为{}", localDateTime, String.valueOf(from));
 		return from;
 	}
 
