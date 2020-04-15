@@ -20,7 +20,7 @@ import java.util.*;
  */
 public class VerifyUtils {
 	/**
-	 * 天气签名生成算法-JAVA版本
+	 * 签名生成算法-JAVA版本
 	 *
 	 * @param params 请求参数集，所有参数必须已转换为字符串类型
 	 * @param secret 签名密钥（用户的认证key）
